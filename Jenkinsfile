@@ -3,7 +3,7 @@ pipeline {
     environment {
         docker_app = "go_app"
         GOCACHE = "/tmp"
-        registry = "155.98.38.187"
+        registry = "128.105.146.154"
         userid = "lngo"
     }
     stages {
