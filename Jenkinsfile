@@ -1,9 +1,11 @@
 pipeline {
     agent none 
     environment {
+        docker_registry = "linhbngo/go_server"
+        docker_user = "linhbngo"
         docker_app = "go_app"
         GOCACHE = "/tmp"
-        registry = "130.127.132.241"
+        server = "130.127.132.241"
         userid = "lngo"
     }
     stages {
@@ -53,9 +55,9 @@ pipeline {
             }
             steps{
                 container('docker') {
-                    sh 'docker login -u admin -p registry https://${registry}:443'
-                    sh 'docker build -t ${registry}:443/go_app:$BUILD_NUMBER .'
-                    sh 'docker push ${registry}:443/go_app:$BUILD_NUMBER'
+                    sh 'echo $DOCKER_TOKEN | docker login --username $DOCKER_USER --password-stdin'
+                    sh 'docker build -t ${docker_registry}:$BUILD_NUMBER .'
+                    sh 'docker push ${docker_registry}:$BUILD_NUMBER'
                 }
             }
         }
@@ -67,12 +69,12 @@ pipeline {
             }
             steps {
                 sshagent(credentials: ['cloudlab-lngo']) {
-                    sh "sed -i 's/REGISTRY/${registry}/g' deployment.yml"
+                    sh "sed -i 's/REGISTRY/${docker_registry}/g' deployment.yml"
                     sh "sed -i 's/DOCKER_APP/${docker_app}/g' deployment.yml"
                     sh "sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' deployment.yml"
-                    sh 'scp -r -v -o StrictHostKeyChecking=no *.yml ${userid}@${registry}:~/'
-                    sh 'ssh -o StrictHostKeyChecking=no ${userid}@${registry} kubectl apply -f /users/${userid}/deployment.yml'
-                    sh 'ssh -o StrictHostKeyChecking=no ${userid}@${registry} kubectl apply -f /users/${userid}/service.yml'                                        
+                    sh 'scp -r -v -o StrictHostKeyChecking=no *.yml ${userid}@${server}:~/'
+                    sh 'ssh -o StrictHostKeyChecking=no ${userid}@${server} kubectl apply -f /users/${userid}/deployment.yml'
+                    sh 'ssh -o StrictHostKeyChecking=no ${userid}@${server} kubectl apply -f /users/${userid}/service.yml'                                        
                 }
             }
         }
