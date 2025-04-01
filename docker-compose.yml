@@ -1,16 +1,14 @@
 version: "3.8"
 services:
-  express_starter:
-    container_name: express_starter
-    image: itbeeazy/express-starter:latest
+  go_app:
+    container_name: go_app
+    image: linhbngo/go_app:latest
     restart: always
-    environment:
-      - PORT=3030
     expose:
-      - 3030
+      - 80
     ports:
-      - 3030:3030
-
+      - 8080:80
+      
   watchtower:
     container_name: watchtower
     image: containrrr/watchtower
