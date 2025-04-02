@@ -1,8 +1,14 @@
 version: "3.8"
 services:
   go_app:
+    build:
+      context: ./docker/
+      args:
+        image_tag: latest
+      tags:
+        - "linhbngo/go_server:${image_tag}"
     container_name: go_app
-    image: linhbngo/go_server:latest
+    image: linhbngo/go_server:${image_tag}
     restart: always
     expose:
       - 80
