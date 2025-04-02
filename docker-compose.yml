@@ -8,7 +8,7 @@ services:
       tags:
         - "linhbngo/go_server:${image_tag}"
     container_name: go_app
-    image: linhbngo/go_server:${image_tag}
+    image: linhbngo/go_server:latest
     restart: always
     expose:
       - 80
