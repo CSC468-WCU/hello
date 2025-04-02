@@ -7,6 +7,8 @@ WORKDIR /go/src/app
 RUN GO111MODULE=auto CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o app .
 
 FROM scratch
+
+EXPOSE 
 WORKDIR /app
 COPY --from=build-env /go/src/app/app .
 ENTRYPOINT [ "./app" ]
