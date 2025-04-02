@@ -27,7 +27,7 @@ jobs:
         id: build-push-api
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./docker
           file: Dockerfile
           push: true
           tags: linhbngo/go_server:latest
