@@ -2,10 +2,8 @@ services:
   go_app:
     build:
       context: ./docker/
-      args:
-        image_tag: latest
       tags:
-        - "linhbngo/go_server:${image_tag}"
+        - "linhbngo/go_server:latest"
     container_name: go_app
     image: linhbngo/go_server:latest
     restart: always
