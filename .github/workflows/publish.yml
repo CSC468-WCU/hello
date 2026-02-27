@@ -5,7 +5,7 @@ on:
       - "go_app_compose_cdci"
 
 jobs:
-  deploy:
+  build-push:
     name: build && push image to Docker Hub
     runs-on: self-hosted
 
