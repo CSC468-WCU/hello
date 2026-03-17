@@ -2,7 +2,7 @@ name: pipeline
 on:
   push:
     branches:
-      - "go_app_compose_cdci"
+      - "go_app_compose_cdci_2"
 
 jobs:
   build-push:
