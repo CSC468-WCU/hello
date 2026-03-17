@@ -31,7 +31,7 @@ jobs:
           push: true
           tags: linhbngo/go_server:latest
   deploy:
-    needs: build_and_push # Wait for the image to hit Docker Hub
+    needs: build-push # Wait for the image to hit Docker Hub
     runs-on: self-hosted  # This tells GitHub to execute this on your CloudLab node!
     steps:
       - name: Deploy the updated stack
