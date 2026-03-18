@@ -38,4 +38,5 @@ jobs:
         run: |
           # The runner executes these commands directly on your CloudLab server
           docker compose pull go_app
+          docker compose down
           docker compose up -d
